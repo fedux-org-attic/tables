@@ -1,10 +1,10 @@
 # -*- encoding: utf-8 -*-
 
-require File.expand_path('../lib/workplace/tables/version', __FILE__)
+require File.expand_path('../lib/tables/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.name          = "workplace-tables"
-  gem.version       = Workplace::Tables::VERSION
+  gem.name          = "tables"
+  gem.version       = Tables::VERSION
   gem.summary       = %q{TODO: Summary}
   gem.description   = %q{TODO: Description}
   gem.license       = "MIT"

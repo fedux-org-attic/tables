@@ -1,4 +1,8 @@
-Gemfile.lock
-doc/
-pkg/
-vendor/cache/*.gem
+*.gem
+.bundle
+pkg/*
+*.s??
+.rvmrc
+doc/yard
+.yardoc
+tmp/*
