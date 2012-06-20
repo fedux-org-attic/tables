@@ -18,6 +18,7 @@ group :development do
   gem 'github-markup'
   gem 'cucumber'
   gem 'aruba'
+  gem 'factory_girl'
 end
 
 gem 'command_line_reporter', :git => 'https://github.com/wbailey/command_line_reporter.git'
