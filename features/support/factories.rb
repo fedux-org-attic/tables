@@ -12,4 +12,4 @@ FactoryGirl.define do
   end
 end
 
-require 'tables/helper/step_definitions'
+require 'factory_girl/step_definitions'
