@@ -25,5 +25,12 @@ Feature: View data as a horizontal table
     When I view them as a "horizontal_table"
     Then I see the following output:
     """
+    ┏━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━┓
+    ┃ Max Mustermann ┃ Musterstraße 1      ┃
+    ┣━━━━━━━━━━━━━━━━╊━━━━━━━━━━━━━━━━━━━━━┫
+    ┃ Herbert Hurtig ┃ Schnelle Straße 200 ┃
+    ┣━━━━━━━━━━━━━━━━╊━━━━━━━━━━━━━━━━━━━━━┫
+    ┃ Peter Pause    ┃ Gemütlicher Weg 2   ┃
+    ┗━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━┛
     """
 
