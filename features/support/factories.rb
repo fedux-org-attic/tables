@@ -1,12 +1,15 @@
-#encoding: utf-8
 require 'factory_girl'
-require_relative 'models/person'
+
+class Person
+  attr_accessor :name, :street
+end
 
 FactoryGirl.define do
   factory :person do
     name 'Manfred Huber'
     street  'Sesamestreet 1'
+    skip_create
   end
 end
 
-require 'tables/helper/factory_girl-step_definitions-build'
+require 'factory_girl/step_definitions'

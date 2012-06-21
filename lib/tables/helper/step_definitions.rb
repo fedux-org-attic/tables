@@ -42,7 +42,7 @@ module FactoryGirlStepHelpers
 
         if attributes_hash = nested_attribute_hash
           factory.build_class.first(conditions: attributes_hash.attributes(FindAttributes)) or
-          FactoryGirl.build(association.factory, attributes_hash.attributes)
+          FactoryGirl.create(association.factory, attributes_hash.attributes)
         end
       end
 
@@ -109,29 +109,31 @@ FactoryGirl.factories.each do |factory|
     end
 
     Given /^the following (?:#{human_name}|#{human_name.pluralize}) exists?:?$/i do |table|
+      @factories = []  
+
       table.hashes.each do |human_hash|
         attributes = convert_human_hash_to_attribute_hash(human_hash, factory.associations)
-        FactoryGirl.build(factory.name, attributes)
+        @factories << FactoryGirl.create(factory.name, attributes)
       end
     end
 
     Given /^an? #{human_name} exists$/i do
-      FactoryGirl.build(factory.name)
+      @factory = FactoryGirl.create(factory.name)
     end
 
     Given /^(\d+) #{human_name.pluralize} exist$/i do |count|
-      FactoryGirl.build_list(factory.name, count.to_i)
+       @factories = FactoryGirl.create_list(factory.name, count.to_i)
     end
 
     attribute_names_for_model.each do |attribute_name|
       human_column_name = attribute_name.downcase.gsub('_', ' ')
 
       Given /^an? #{human_name} exists with an? #{human_column_name} of "([^"]*)"$/i do |value|
-        FactoryGirl.build(factory.name, attribute_name => value)
+       @factory = FactoryGirl.create(factory.name, attribute_name => value)
       end
 
       Given /^(\d+) #{human_name.pluralize} exist with an? #{human_column_name} of "([^"]*)"$/i do |count, value|
-        FactoryGirl.build_list(factory.name, count.to_i, attribute_name => value)
+        @factories = FactoryGirl.create_list(factory.name, count.to_i, attribute_name => value)
       end
     end
   end
