@@ -23,7 +23,7 @@ Feature: View data as a horizontal table
       | Herbert Hurtig | Schnelle Straße 200 |
       | Peter Pause    | Gemütlicher Weg 2   |
     When I view them as a "horizontal_table"
-    Then I see the following output on "STDOUT":
+    Then I see the following output:
     """
     """
 
