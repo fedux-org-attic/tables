@@ -26,11 +26,27 @@ Feature: View data as a horizontal table
     Then I see the following output:
     """
     ┏━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━┓
-    ┃ Max Mustermann ┃ Musterstraße 1      ┃
+    ┃ Max Mustermann ┃ Musterstraße 1      ┃ 
     ┣━━━━━━━━━━━━━━━━╊━━━━━━━━━━━━━━━━━━━━━┫
-    ┃ Herbert Hurtig ┃ Schnelle Straße 200 ┃
+    ┃ Herbert Hurtig ┃ Schnelle Straße 200 ┃ 
     ┣━━━━━━━━━━━━━━━━╊━━━━━━━━━━━━━━━━━━━━━┫
-    ┃ Peter Pause    ┃ Gemütlicher Weg 2   ┃
+    ┃ Peter Pause    ┃ Gemütlicher Weg 2   ┃ 
     ┗━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━┛
     """
 
+  Scenario: Simple table without border
+    Given the following person exist:
+      | Name           | Street              |
+      | Max Mustermann | Musterstraße 1      |
+      | Herbert Hurtig | Schnelle Straße 200 |
+      | Peter Pause    | Gemütlicher Weg 2   |
+    When I define the following options
+      | element  | option      | value  |
+      | table    | border      | false  |
+    And I view them as a "horizontal_table" 
+    Then I see the following output:
+    """
+    Max Mustermann Musterstraße 1      
+    Herbert Hurtig Schnelle Straße 200 
+    Peter Pause    Gemütlicher Weg 2   
+    """
