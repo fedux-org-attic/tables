@@ -38,8 +38,9 @@ module Tables
       }.rmerge options
 
       @items = items
-      table_definition = TableDefinition.new(@items)
-      @attributes = table_definition.attributes
+      @attributes = determine_available_attributes(@items.first)
+      @options = filter_options(@options)
+
       @header = @options[:header]
 #      @attributes = @options[:attributes]
       @table_options = @options[:table]
@@ -52,6 +53,24 @@ module Tables
 
       #is_table_definition_correct?(@header, @attributes ) unless @header.empty?
     end
+
+
+    # Get all attributes for an object
+    # based on (available instance vars & available attr_accessors)
+    #
+    # @param [Object] item Object which should be inspected
+    # @return [Array] the methods found
+    def determine_available_attributes(item) 
+      instance_vars = item.instance_variables
+      candidates = instance_vars.map{|variable| variable.to_s.gsub(/@/, '').to_sym}
+
+      method_names = candidates.keep_if {|name| item.respond_to?(name) }
+    end
+
+    #def determine_interesting_attributes
+
+    #end
+
 
 #    # Check table definition base on given header
 #    # and attributes
