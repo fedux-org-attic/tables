@@ -81,18 +81,16 @@ Feature: View data as a horizontal table
       | Herbert Hurtig | Schnelle Straße 200 |
       | Peter Pause    | Gemütlicher Weg 2   |
     When I define the following options
-      | element  | option      | value    |
-      | table    | attributes  | %w(name) |
+      | element  | option      | value     |
+      | table    | attributes  | [:name] |
     And I view them as a "horizontal_table" 
     Then I see the following output:
     """
     ┏━━━━━━━━━━━━━━━━┓
-    ┃ \e[1mName\e[0m ┃
+    ┃ Max Mustermann ┃ 
     ┣━━━━━━━━━━━━━━━━┫
-    ┃ Max Mustermann ┃
+    ┃ Herbert Hurtig ┃ 
     ┣━━━━━━━━━━━━━━━━┫
-    ┃ Herbert Hurtig ┃
-    ┣━━━━━━━━━━━━━━━━┫
-    ┃ Peter Pause    ┃
+    ┃ Peter Pause    ┃ 
     ┗━━━━━━━━━━━━━━━━┛
     """

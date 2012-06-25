@@ -23,11 +23,12 @@ module Tables
     # @see https://github.com/wbailey/command_line_reporter Documentation for table_options, row_options, column_options
     def initialize(items, options={})
       @options = {
-        attributes: [],
-        header: [],
         table: {
+          attributes: [],
+          header: [],
           border: true ,
           width: :auto,
+          column_widths: [],
         },
         data_row: {},
         header_row: {
@@ -38,7 +39,9 @@ module Tables
       }.rmerge options
 
       @items = items
-      @attributes = determine_available_attributes(@items.first)
+      avail_attr = determine_available_attributes(@items.first)
+      @attributes = filter_attributes(avail_attr, @options[:table][:attributes])
+
       @options = filter_options(@options)
 
       @header = @options[:header]
@@ -62,7 +65,7 @@ module Tables
     def filter_options(set_options)
       options_which_should_be_filtered = {
         #element #allowed options
-        table:   [ :header, :border, :width ],
+        table:   [ :border, :width ],
       }
 
       options_which_should_be_filtered.keys.each do |element|
@@ -86,9 +89,19 @@ module Tables
       method_names = candidates.keep_if {|name| item.respond_to?(name) }
     end
 
-    #def determine_interesting_attributes
+    # Get all attributes based on filter
+    #
+    # @param [Array] available_attributes list of available attributes
+    # @param [Array] wished_attributes list of attributes which should be displayed
+    # @return [Array] filtered list of attributes
+    def filter_attributes(available_attributes, wished_attributes)
+      unless wished_attributes.empty?
+        available_attributes.keep_if { |attr| wished_attributes.include? attr }
+      end
 
-    #end
+
+      available_attributes
+    end
 
 
 #    # Check table definition base on given header
