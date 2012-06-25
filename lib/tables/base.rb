@@ -54,6 +54,25 @@ module Tables
       #is_table_definition_correct?(@header, @attributes ) unless @header.empty?
     end
 
+    # Filters out options which cannot be
+    # used with command_line_reporter
+    #
+    # @param [Array] set_options the options which have been set
+    # @return [Array] modified option array (filtered)
+    def filter_options(set_options)
+      options_which_should_be_filtered = {
+        #element #allowed options
+        table:   [ :header, :border, :width ],
+      }
+
+      options_which_should_be_filtered.keys.each do |element|
+        set_options[element].keep_if do |option| 
+          options_which_should_be_filtered[element].include?(option) 
+        end
+      end
+
+      set_options
+    end
 
     # Get all attributes for an object
     # based on (available instance vars & available attr_accessors)
