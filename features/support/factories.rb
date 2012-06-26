@@ -11,5 +11,3 @@ FactoryGirl.define do
     skip_create
   end
 end
-
-require 'factory_girl/step_definitions'
