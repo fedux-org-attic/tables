@@ -51,28 +51,28 @@ Feature: View data as a horizontal table
     Peter Pause    Gemütlicher Weg 2   
     """
 
-#  Scenario: Simple table with header 
-#    Given the following person exist:
-#      | Name           | Street              |
-#      | Max Mustermann | Musterstraße 1      |
-#      | Herbert Hurtig | Schnelle Straße 200 |
-#      | Peter Pause    | Gemütlicher Weg 2   |
-#    When I define the following options
-#      | element  | option      | value  |
-#      | table    | header      | true  |
-#    And I view them as a "horizontal_table" 
-#    Then I see the following output:
-#    """
-#    ┏━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━┓
-#    ┃ \e[1mName\e[0m ┃ \e[1mStreet   \e[0m ┃ 
-#    ┣━━━━━━━━━━━━━━━━╊━━━━━━━━━━━━━━━━━━━━━┫
-#    ┃ Max Mustermann ┃ Musterstraße 1      ┃ 
-#    ┣━━━━━━━━━━━━━━━━╊━━━━━━━━━━━━━━━━━━━━━┫
-#    ┃ Herbert Hurtig ┃ Schnelle Straße 200 ┃ 
-#    ┣━━━━━━━━━━━━━━━━╊━━━━━━━━━━━━━━━━━━━━━┫
-#    ┃ Peter Pause    ┃ Gemütlicher Weg 2   ┃ 
-#    ┗━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━┛
-#    """
+  Scenario: Simple table with header 
+    Given the following person exist:
+      | Name           | Street              |
+      | Max Mustermann | Musterstraße 1      |
+      | Herbert Hurtig | Schnelle Straße 200 |
+      | Peter Pause    | Gemütlicher Weg 2   |
+    When I define the following options
+      | element  | option      | value  |
+      | table    | header      | :camelize|
+    And I view them as a "horizontal_table" 
+    Then I see the following output:
+    """
+    ┏━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━┓
+    ┃ \e[1mName\e[0m ┃ \e[1mStreet   \e[0m ┃ 
+    ┣━━━━━━━━━━━━━━━━╊━━━━━━━━━━━━━━━━━━━━━┫
+    ┃ Max Mustermann ┃ Musterstraße 1      ┃ 
+    ┣━━━━━━━━━━━━━━━━╊━━━━━━━━━━━━━━━━━━━━━┫
+    ┃ Herbert Hurtig ┃ Schnelle Straße 200 ┃ 
+    ┣━━━━━━━━━━━━━━━━╊━━━━━━━━━━━━━━━━━━━━━┫
+    ┃ Peter Pause    ┃ Gemütlicher Weg 2   ┃ 
+    ┗━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━┛
+    """
 
   Scenario: Simple table with single column
     Given the following person exist:

@@ -20,6 +20,14 @@ module Tables
       suppress_output if @return_as_string == true
 
       table @table_options do
+        if @options[:table][:header] == true
+          row @header_row_options do 
+            @headers.each do |h|
+              column item.public_send(h).delete_newline , @column_options 
+            end
+          end
+        end
+
         #data rows
         @items.each do |item|
           row @data_row_options do

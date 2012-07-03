@@ -25,26 +25,28 @@ module Tables
       @options = {
         table: {
           attributes: [],
-          header: [],
           border: true ,
           width: :auto,
           column_widths: [],
         },
         data_row: {},
         header_row: {
-          header: true
+          format: :camelize,
         },
         column: {},
         return_as_string: false,
+        hide_header: true,
       }.rmerge options
 
       @items = items
       avail_attr = determine_available_attributes(@items.first)
       @attributes = filter_attributes(avail_attr, @options[:table][:attributes])
 
+      @headers = build_header(@options[:table][:header], @attributes)
+
       @options = filter_options(@options)
 
-      @header = @options[:header]
+      @header_options = @options[:header]
 #      @attributes = @options[:attributes]
       @table_options = @options[:table]
       @header_row_options = @options[:header_row]
@@ -99,8 +101,20 @@ module Tables
         available_attributes.keep_if { |attr| wished_attributes.include? attr }
       end
 
-
       available_attributes
+    end
+
+    # Build header
+    #
+    # @param [Symbol] format how to format the attributes
+    # @param [Array] headers which should be formatted
+    def build_header(format, headers)
+      case format
+      when :camelize
+        headers.collect do |header_cell|
+          header_cell.to_s.camelize
+        end
+      end
     end
 
 
