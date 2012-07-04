@@ -55,10 +55,15 @@ module Tables
     def build_options(type,opts)
       case type
       when :table
-        filter_options opts, [ :border , :width]
+        filtered_options = filter_options opts, [ :border , :width]
+      when :header
+        filtered_options = filter_options opts, []
+        filtered_options[:header] = true
       else
-        filter_options opts, [ ]
+        filtered_options = filter_options opts, [ ]
       end
+
+      filtered_options
     end
 
     # Filters out options which cannot be

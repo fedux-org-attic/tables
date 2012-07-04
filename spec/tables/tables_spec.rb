@@ -96,7 +96,7 @@ EOF
         output = horizontal_table @data, options
         output.should == <<EOF.unindent
         ┏━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━┓
-        ┃ \e[1mName\e[0m ┃ \e[1mStreet   \e[0m ┃ 
+        ┃ \e[1mName          \e[0m ┃ \e[1mStreet             \e[0m ┃ 
         ┣━━━━━━━━━━━━━━━━╊━━━━━━━━━━━━━━━━━━━━━┫
         ┃ Max Mustermann ┃ Musterstraße 1      ┃ 
         ┣━━━━━━━━━━━━━━━━╊━━━━━━━━━━━━━━━━━━━━━┫
