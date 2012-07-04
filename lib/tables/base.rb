@@ -28,35 +28,37 @@ module Tables
           border: true ,
           width: :auto,
           column_widths: [],
+          return_as_string: false,
         },
-        data_row: {},
-        header_row: {
+        data: {},
+        header: {
           format: :camelize,
+          show: false
         },
         column: {},
-        return_as_string: false,
-        hide_header: true,
       }.rmerge options
 
-      @items = items
-      avail_attr = determine_available_attributes(@items.first)
-      @attributes = filter_attributes(avail_attr, @options[:table][:attributes])
-
-      @headers = build_header(@options[:table][:header], @attributes)
-
-      @options = filter_options(@options)
-
       @header_options = @options[:header]
-#      @attributes = @options[:attributes]
       @table_options = @options[:table]
-      @header_row_options = @options[:header_row]
-      @data_row_options = @options[:data_row]
+      @data_options = @options[:data]
       @column_options = @options[:column]
-      @return_as_string = @options[:return_as_string]
 
-      #@column_widths = prepare_column_widths(@table_options, @column_options, @options[:column_widths])
+      @items = items
+      available_attributes = determine_available_attributes(@items.first)
+      @attributes = filter_attributes(available_attributes, @table_options[:attributes])
+
+      @headers = build_header(@header_options[:format], @attributes)
 
       #is_table_definition_correct?(@header, @attributes ) unless @header.empty?
+    end
+
+    def build_options(type,opts)
+      case type
+      when :table
+        filter_options opts, [ :border , :width]
+      else
+        filter_options opts, [ ]
+      end
     end
 
     # Filters out options which cannot be
@@ -64,19 +66,8 @@ module Tables
     #
     # @param [Array] set_options the options which have been set
     # @return [Array] modified option array (filtered)
-    def filter_options(set_options)
-      options_which_should_be_filtered = {
-        #element #allowed options
-        table:   [ :border, :width ],
-      }
-
-      options_which_should_be_filtered.keys.each do |element|
-        set_options[element].keep_if do |option| 
-          options_which_should_be_filtered[element].include?(option) 
-        end
-      end
-
-      set_options
+    def filter_options(opts, filter)
+      opts.select {|key| filter.include? key }
     end
 
     # Get all attributes for an object
@@ -97,11 +88,14 @@ module Tables
     # @param [Array] wished_attributes list of attributes which should be displayed
     # @return [Array] filtered list of attributes
     def filter_attributes(available_attributes, wished_attributes)
+
       unless wished_attributes.empty?
-        available_attributes.keep_if { |attr| wished_attributes.include? attr }
+        attributes = available_attributes.select { |attr| wished_attributes.include? attr }
+      else
+        attributes = available_attributes
       end
 
-      available_attributes
+     attributes
     end
 
     # Build header
@@ -113,6 +107,10 @@ module Tables
       when :camelize
         headers.collect do |header_cell|
           header_cell.to_s.camelize
+        end
+      else
+        headers.collect do |header_cell|
+          header_cell.to_s
         end
       end
     end

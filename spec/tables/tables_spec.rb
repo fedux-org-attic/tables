@@ -41,7 +41,9 @@ describe Tables do
       end
 
       @options =  {
-        return_as_string: true #only for testing
+        table: {
+          return_as_string: true #only for testing
+        }
       }
     end
 
@@ -85,8 +87,9 @@ EOF
       it "displays a table with a header based on the camelized names of the attributes" do
 
         options = {
-          table: {
-            header: :camelize
+          header: {
+            format: :camelize,
+            show: true
           },
         }.rmerge @options
 

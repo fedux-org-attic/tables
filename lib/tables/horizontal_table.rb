@@ -17,23 +17,23 @@ module Tables
     end
 
     def build
-      suppress_output if @return_as_string == true
+      suppress_output if @table_options[:return_as_string] == true
 
-      table @table_options do
-        if @options[:table][:header] == true
-          row @header_row_options do 
+      table build_options(:table, @table_options) do
+        if @header_options[:show] == true
+          row build_options(:header, @header_options) do 
             @headers.each do |h|
-              column item.public_send(h).delete_newline , @column_options 
+              column h, build_options(:column, @column_options )
             end
           end
         end
 
         #data rows
         @items.each do |item|
-          row @data_row_options do
+          row build_options(:data, @data_options) do
             @attributes.each do |attr|
               if item.respond_to?(attr)
-                column item.public_send(attr).delete_newline , @column_options
+                column item.public_send(attr).delete_newline , build_options(:column, @column_options)
               else
                 raise UnknownDataAttribute, "Unknown attribute (#{attr}) supplied."
               end #if respond
@@ -42,7 +42,7 @@ module Tables
         end # each data object
       end #table
 
-      @output = capture_output if @return_as_string == true
+      @output = capture_output if @table_options[:return_as_string] == true
     end
   end
 end
